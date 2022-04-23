@@ -1,5 +1,6 @@
 # subroll
-Automatically choose a random IPv6 address from your subnet.
+Automatically choose a random IPv6 address from your subnet.  
+Currently it only supports Linux and requests.
 
 # AnyIP
 
