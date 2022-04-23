@@ -30,6 +30,15 @@ class SubRoll:
         session.mount("https://", adapter)
         return session
 
+    def wrap_socket(self):
+        class SubrollSocket(socket.socket):
+            def connect(sock, *args, **kwargs):
+                sock.setsockopt(socket.SOL_IP, IP_FREEBIND, 1)
+                sock.bind((self.get_ipv6_address(), 0))
+                return super(SubrollSocket, sock).connect(*args, **kwargs)
+
+        socket.socket = SubrollSocket
+
 
 class SubrollAdapter(HTTPAdapter):
     def __init__(self, *args, source_address: str, **kwargs):
